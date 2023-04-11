@@ -1,9 +1,9 @@
-import './styles/App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import Element from './components/element';
+import './styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+function Stack() {
   const [value, setValue] = React.useState('');
   const [currpop, setPop] = React.useState('');
   const [currtop, setTop] = React.useState('');
@@ -19,7 +19,7 @@ function App() {
       alert('Stack is empty');
       return;
     }
-    var top = stack[0];
+    var top = stack[stack.length - 1];
     setTop(top);
   };
 
@@ -28,7 +28,7 @@ function App() {
       alert('Please enter a value');
       return;
     }
-    setStack([value, ...stack]);
+    setStack([...stack, value]);
   };
 
   const pop = () => {
@@ -36,9 +36,8 @@ function App() {
       alert('Stack is empty');
       return;
     }
-    var top = stack[0];
-    var arr = stack.slice();
-    arr.shift();
+    var top = stack[stack.length - 1];
+    var arr = stack.slice(0, stack.length - 1);
     setStack(arr);
     setPop(top);
   };
@@ -48,8 +47,8 @@ function App() {
       <h1 className="header">Stack</h1>
       <div className="row">
         <div className="col md-6 stack">
-          {stack.map((item, key) => (
-            <Element key={key} val={item} />
+          {stack.map((item, index) => (
+            <Element key={index} value={item} />
           ))}
         </div>
         <div className="col md-3 operation">
@@ -78,4 +77,4 @@ function App() {
   );
 }
 
-export default App;
+export default Stack;
